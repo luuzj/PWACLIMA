@@ -59,9 +59,16 @@ export default function Home() {
     };
   }, [city, selectedCity]);
 
-  const handleSearch = async (e) => {
+const handleSearch = async (e) => {
     e.preventDefault();
     if (!city.trim()) return;
+
+    // Ocultar y limpiar la lista de sugerencias al presionar Enter/Buscar
+    setCitySuggestions([]);
+    setCitySearchCompleted(false);
+    setSearchingCities(false);
+    setCitySearchError("");
+
     executeFetch(() =>
       selectedCity
         ? getWeatherByCoords(selectedCity.lat, selectedCity.lon)
